@@ -1,45 +1,45 @@
-export const parseGeojson = data => {
-  const features = data.map(item => ({
-    type: 'Feature',
-    geometry: {
-      type: 'Point',
-      coordinates: [item.longitude, item.latitude],
-    },
-    properties: item,
-  }));
-
-  return {
-    type: 'FeatureCollection',
-    features,
-  };
-};
-
 export const LOCATIONS = [
   {
     id: '1',
     name: 'Wyncode',
-    longitude: -80.2044,
-    latitude: 25.8028,
+    address: '549 nw 28th st',
+    city: 'miami',
+    state: 'florida',
+    zip: '33127',
   },
   {
     id: '2',
     name: "Joe's Stone Crab",
-    longitude: -80.1353,
-    latitude: 25.7689,
+    address: '11 washington ave',
+    city: 'miami beach',
+    state: 'florida',
+    zip: '33139',
   },
   {
     id: '3',
     name: 'Zuma',
     longitude: -80.1896,
     latitude: 25.7705,
+    address: '270 biscayne blvd way',
+    city: 'miami',
+    state: 'florida',
+    zip: '33131',
   },
   {
     id: '4',
     name: 'Home',
-    longitude: -80.33618,
-    latitude: 25.58416,
+    address: '8900 sw 197th st',
+    city: 'miami',
+    state: 'florida',
+    zip: '33157',
   },
 ];
+
+export const convertAddressToQuery = ({ address, city, state, zip }) => {
+  const baseAddress = `${address} ${city} ${state} ${zip}`;
+
+  return baseAddress.split(' ').join('%20');
+};
 
 export const getLocations = () => new Promise(resolve => resolve(LOCATIONS));
 
@@ -49,7 +49,7 @@ export const MARKER_LAYER = {
   source: 'markers',
   layout: {
     'icon-image': 'mapbox-logo',
-    'icon-size': 1.5,
+    'icon-size': 0.5,
     'icon-allow-overlap': true,
   },
 };
